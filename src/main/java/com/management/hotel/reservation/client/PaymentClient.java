@@ -6,7 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = "payment-service", url = "http://localhost:8093", path = "/api/v1/payments")
+@FeignClient(name = "${feign.paymentclient.name}", path = "/api/v1/payments")
 public interface PaymentClient {
 
     @GetMapping("/{id}")
