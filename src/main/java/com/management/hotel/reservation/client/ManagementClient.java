@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "management-service", url = "http://localhost:8094", path = "/api/v1/managements")
+@FeignClient(name = "${feign.managementclient.name}", path = "/api/v1/managements")
 public interface ManagementClient {
 
     @GetMapping("/rooms/{id}/{roomsToReserve}")
