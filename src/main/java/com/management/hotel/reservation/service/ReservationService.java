@@ -7,6 +7,7 @@ import com.management.hotel.reservation.dto.PaymentDto;
 import com.management.hotel.reservation.exception.NoRoomsAvailableException;
 import com.management.hotel.reservation.model.Reservation;
 import com.management.hotel.reservation.repository.ReservationRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,7 @@ public class ReservationService {
     @Autowired
     private ManagementClient managementClient;
 
+    @Transactional
     public Reservation save(Reservation reservation) {
         Boolean isRoomAvailable = managementClient.isRoomAvailable(reservation.getHotelId(), reservation.getRoomsToReserve());
         log.info("Response from Management Service, Is Room available ?:: {}" , isRoomAvailable);
@@ -42,6 +44,7 @@ public class ReservationService {
         return reservationRepository.findById(id);
     }
 
+    @Transactional
     public String cancel(Long id) {
         Optional<Reservation> reservation = reservationRepository.findById(id);
         if (reservation.isPresent()){
